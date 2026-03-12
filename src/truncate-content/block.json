@@ -1,0 +1,56 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "flashblocks/truncate-content",
+	"version": "1.0.0",
+	"title": "Truncate Content",
+	"category": "design",
+	"icon": "hidden",
+	"description": "A container that truncates its content with a read more/less toggle.",
+	"textdomain": "flashblocks-truncate-content",
+	"attributes": {
+		"maxHeight": {
+			"type": "number",
+			"default": 75
+		},
+		"readMoreText": {
+			"type": "string",
+			"default": "Read More"
+		},
+		"readLessText": {
+			"type": "string",
+			"default": "Read Less"
+		},
+		"svgIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"buttonColor": {
+			"type": "string"
+		},
+		"customButtonColor": {
+			"type": "string"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"color": {
+			"background": true,
+			"text": true,
+			"link": true
+		},
+		"spacing": {
+			"margin": ["top", "bottom"],
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		}
+	},
+	"editorScript": "file:index.js",
+	"editorStyle": "file:index.css",
+	"style": "file:style-index.css",
+	"viewScript": "file:./view.js"
+}

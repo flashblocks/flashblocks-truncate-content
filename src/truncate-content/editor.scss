@@ -1,0 +1,16 @@
+/* Editor overrides: show full content for editing, disable toggle interaction */
+.wp-block-flashblocks-truncate-content {
+	&__body {
+		max-height: none;
+		overflow: visible;
+
+		&::after {
+			display: none;
+		}
+	}
+
+	&__toggle {
+		cursor: default;
+		opacity: 0.6;
+	}
+}
