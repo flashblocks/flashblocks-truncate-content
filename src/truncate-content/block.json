@@ -25,23 +25,30 @@
 			"type": "string",
 			"default": ""
 		},
-		"buttonColor": {
-			"type": "string"
+		"showFade": {
+			"type": "boolean",
+			"default": false
 		},
-		"customButtonColor": {
+		"buttonColor": {
 			"type": "string"
 		}
 	},
 	"supports": {
 		"html": false,
-		"align": ["full", "wide"],
+		"align": [
+			"full",
+			"wide"
+		],
 		"color": {
 			"background": true,
 			"text": true,
 			"link": true
 		},
 		"spacing": {
-			"margin": ["top", "bottom"],
+			"margin": [
+				"top",
+				"bottom"
+			],
 			"padding": true
 		},
 		"typography": {

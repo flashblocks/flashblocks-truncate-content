@@ -78,6 +78,11 @@
 		transform: rotate(180deg);
 	}
 
+	/* Fade disabled */
+	&.has-no-fade &__body::after {
+		display: none;
+	}
+
 	/* Content fits within max-height: remove all truncation artifacts */
 	&.is-fully-visible &__body {
 		max-height: none;

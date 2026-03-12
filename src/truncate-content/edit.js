@@ -3,7 +3,6 @@ import {
 	useBlockProps,
 	InnerBlocks,
 	InspectorControls,
-	withColors,
 	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from "@wordpress/block-editor";
@@ -12,28 +11,20 @@ import {
 	RangeControl,
 	TextControl,
 	TextareaControl,
+	ToggleControl,
 } from "@wordpress/components";
 import "./style.scss";
 import "./editor.scss";
 
-function Edit({
-	attributes,
-	setAttributes,
-	buttonColor,
-	setButtonColor,
-}) {
-	const { maxHeight, readMoreText, readLessText, svgIcon, customButtonColor } =
+export default function Edit({ attributes, setAttributes, clientId }) {
+	const { maxHeight, readMoreText, readLessText, svgIcon, showFade, buttonColor } =
 		attributes;
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
-
-	const buttonColorValue = buttonColor?.slug
-		? `var(--wp--preset--color--${buttonColor.slug})`
-		: customButtonColor;
 
 	const blockProps = useBlockProps({
 		style: {
 			"--truncate-max-height": `${maxHeight}px`,
-			"--truncate-button-color": buttonColorValue,
+			"--truncate-button-color": buttonColor,
 		},
 	});
 
@@ -44,6 +35,11 @@ function Edit({
 					title={__("Truncation Settings", "flashblocks-truncate-content")}
 					initialOpen={true}
 				>
+					<ToggleControl
+						label={__("Show fade effect", "flashblocks-truncate-content")}
+						checked={showFade}
+						onChange={(value) => setAttributes({ showFade: value })}
+					/>
 					<RangeControl
 						label={__("Content Height (px)", "flashblocks-truncate-content")}
 						value={maxHeight}
@@ -79,13 +75,16 @@ function Edit({
 			<InspectorControls group="color">
 				<ColorGradientSettingsDropdown
 					__experimentalIsRenderedInSidebar
+					panelId={clientId}
 					settings={[
 						{
-							colorValue: buttonColor?.color,
+							colorValue: buttonColor,
 							label: __("Button", "flashblocks-truncate-content"),
-							onColorChange: setButtonColor,
+							onColorChange: (value) =>
+								setAttributes({ buttonColor: value }),
 							isShownByDefault: true,
-							resetAllFilter: () => setButtonColor(undefined),
+							resetAllFilter: () =>
+								setAttributes({ buttonColor: undefined }),
 						},
 					]}
 					{...colorGradientSettings}
@@ -108,5 +107,3 @@ function Edit({
 		</>
 	);
 }
-
-export default withColors({ buttonColor: "button-color" })(Edit);

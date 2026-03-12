@@ -1,24 +1,16 @@
+import clsx from "clsx";
 import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 import { RawHTML } from "@wordpress/element";
 
 export default function save({ attributes }) {
-	const {
-		maxHeight,
-		readMoreText,
-		readLessText,
-		svgIcon,
-		buttonColor,
-		customButtonColor,
-	} = attributes;
-
-	const buttonColorValue = buttonColor
-		? `var(--wp--preset--color--${buttonColor})`
-		: customButtonColor;
+	const { maxHeight, readMoreText, readLessText, svgIcon, showFade, buttonColor } =
+		attributes;
 
 	const blockProps = useBlockProps.save({
+		className: clsx({ "has-no-fade": !showFade }),
 		style: {
 			"--truncate-max-height": `${maxHeight}px`,
-			"--truncate-button-color": buttonColorValue,
+			"--truncate-button-color": buttonColor,
 		},
 		"data-read-more": readMoreText,
 		"data-read-less": readLessText,
