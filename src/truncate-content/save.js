@@ -3,7 +3,7 @@ import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 import { RawHTML } from "@wordpress/element";
 
 export default function save({ attributes }) {
-	const { maxHeight, readMoreText, readLessText, svgIcon, showFade, buttonColor } =
+	const { maxHeight, readMoreText, readLessText, svgIcon, showFade, buttonColor, targetSelector } =
 		attributes;
 
 	const blockProps = useBlockProps.save({
@@ -14,6 +14,7 @@ export default function save({ attributes }) {
 		},
 		"data-read-more": readMoreText,
 		"data-read-less": readLessText,
+		...(targetSelector ? { "data-target-selector": targetSelector } : {}),
 	});
 
 	return (

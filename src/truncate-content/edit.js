@@ -17,7 +17,7 @@ import "./style.scss";
 import "./editor.scss";
 
 export default function Edit({ attributes, setAttributes, clientId }) {
-	const { maxHeight, readMoreText, readLessText, svgIcon, showFade, buttonColor } =
+	const { maxHeight, readMoreText, readLessText, svgIcon, showFade, buttonColor, targetSelector } =
 		attributes;
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
@@ -45,8 +45,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 						value={maxHeight}
 						onChange={(value) => setAttributes({ maxHeight: value })}
 						min={30}
-						max={500}
+						max={2000}
 						step={5}
+						withInputField
 					/>
 					<TextControl
 						label={__("Read More Text", "flashblocks-truncate-content")}
@@ -69,6 +70,15 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 						onChange={(value) =>
 							setAttributes({ svgIcon: value })
 						}
+					/>
+					<TextControl
+						label={__("Target Selector", "flashblocks-truncate-content")}
+						help={__("CSS selector for elements to also truncate with these settings, e.g. .my-class", "flashblocks-truncate-content")}
+						value={targetSelector}
+						onChange={(value) =>
+							setAttributes({ targetSelector: value })
+						}
+						placeholder=".add-overflow"
 					/>
 				</PanelBody>
 			</InspectorControls>

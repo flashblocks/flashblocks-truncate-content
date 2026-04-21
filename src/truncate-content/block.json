@@ -31,6 +31,10 @@
 		},
 		"buttonColor": {
 			"type": "string"
+		},
+		"targetSelector": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
