@@ -1,0 +1,27 @@
+/* Shared toggle + icon styles used by both blocks */
+@mixin toggle-button($color-var) {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35em;
+	margin-top: 0.75em;
+	padding: 0;
+	border: none;
+	background: none;
+	color: var(#{$color-var}, var(--wp--preset--color--primary, currentColor));
+	font-weight: 600;
+	font-size: inherit;
+	cursor: pointer;
+	text-decoration: none;
+
+	&[hidden] { display: none; }
+	&:hover { text-decoration: underline; }
+}
+
+@mixin toggle-icon {
+	display: inline-flex;
+	svg { transition: transform 0.3s; }
+}
+
+@mixin expanded-icon {
+	svg { transform: rotate(180deg); }
+}

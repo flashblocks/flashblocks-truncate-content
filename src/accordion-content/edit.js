@@ -1,45 +1,46 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import { useBlockProps, InnerBlocks, InspectorControls } from "@wordpress/block-editor";
-import { PanelBody, RangeControl, TextControl, TextareaControl } from "@wordpress/components";
+import { PanelBody, RangeControl, TextControl, TextareaControl, ToggleControl } from "@wordpress/components";
 import { ButtonColorInspector } from "../shared/color-inspector";
 import { TogglePreview } from "../shared/editor-toggle";
 import "./editor.scss";
 
-const B = "wp-block-flashblocks-truncate-content";
+const B = "wp-block-flashblocks-accordion-content";
 const TD = "flashblocks-truncate-content";
 
 export default function Edit({ attributes, setAttributes, clientId }) {
-	const { maxLines, readMoreText, readLessText, svgIcon, buttonColor, targetSelector, typeRevealSpeed } = attributes;
+	const { maxHeight, readMoreText, readLessText, svgIcon, showFade, buttonColor, targetSelector } = attributes;
 	const [expanded, setExpanded] = useState(false);
 
 	const blockProps = useBlockProps({
-		className: expanded ? "is-expanded" : "",
+		className: [
+			!showFade ? "has-no-fade" : "",
+			expanded ? "is-expanded" : "",
+		].filter(Boolean).join(" "),
 		style: {
-			"--truncate-max-lines": maxLines,
-			"--truncate-button-color": buttonColor,
+			"--accordion-max-height": `${maxHeight}px`,
+			"--accordion-button-color": buttonColor,
 		},
 	});
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={__("Truncation Settings", TD)} initialOpen>
-					<RangeControl
-						label={__("Max Lines", TD)}
-						value={maxLines}
-						onChange={(value) => setAttributes({ maxLines: value })}
-						min={1}
-						max={50}
-						step={1}
-						withInputField
+				<PanelBody title={__("Accordion Settings", TD)} initialOpen>
+					<ToggleControl
+						label={__("Show fade effect", TD)}
+						checked={showFade}
+						onChange={(value) => setAttributes({ showFade: value })}
 					/>
-					<TextControl
-						label={__("Typing Speed (ms/char)", TD)}
-						type="number"
-						value={typeRevealSpeed}
-						onChange={(value) => setAttributes({ typeRevealSpeed: parseFloat(value) || 0.1 })}
-						step="any"
+					<RangeControl
+						label={__("Content Height (px)", TD)}
+						value={maxHeight}
+						onChange={(value) => setAttributes({ maxHeight: value })}
+						min={30}
+						max={2000}
+						step={5}
+						withInputField
 					/>
 					<TextControl
 						label={__("Read More Text", TD)}
@@ -59,7 +60,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 					/>
 					<TextControl
 						label={__("Target Selector", TD)}
-						help={__("CSS selector for elements to also truncate with these settings.", TD)}
+						help={__("CSS selector for elements to also accordion with these settings.", TD)}
 						value={targetSelector}
 						onChange={(value) => setAttributes({ targetSelector: value })}
 						placeholder=".my-class"

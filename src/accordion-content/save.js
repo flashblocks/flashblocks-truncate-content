@@ -1,19 +1,20 @@
+import clsx from "clsx";
 import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 import { SaveToggle } from "../shared/save-toggle";
 
-const B = "wp-block-flashblocks-truncate-content";
+const B = "wp-block-flashblocks-accordion-content";
 
 export default function save({ attributes }) {
-	const { maxLines, readMoreText, readLessText, svgIcon, buttonColor, targetSelector, typeRevealSpeed } = attributes;
+	const { maxHeight, readMoreText, readLessText, svgIcon, showFade, buttonColor, targetSelector } = attributes;
 
 	const blockProps = useBlockProps.save({
+		className: clsx({ "has-no-fade": !showFade }),
 		style: {
-			"--truncate-max-lines": maxLines,
-			"--truncate-button-color": buttonColor,
+			"--accordion-max-height": `${maxHeight}px`,
+			"--accordion-button-color": buttonColor,
 		},
 		"data-read-more": readMoreText,
 		"data-read-less": readLessText,
-		"data-type-speed": typeRevealSpeed,
 		...(targetSelector ? { "data-target-selector": targetSelector } : {}),
 	});
 

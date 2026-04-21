@@ -1,5 +1,5 @@
 @use "../shared/editor-toggle" as et;
 
-.wp-block-flashblocks-truncate-content {
+.wp-block-flashblocks-accordion-content {
 	&__toggle { @include et.editor-toggle; }
 }

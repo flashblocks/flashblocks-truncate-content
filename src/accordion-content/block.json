@@ -1,17 +1,17 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "flashblocks/truncate-content",
+	"name": "flashblocks/accordion-content",
 	"version": "1.0.0",
-	"title": "Truncate Content",
+	"title": "Accordion Content",
 	"category": "design",
-	"icon": "hidden",
-	"description": "A container that truncates text with ellipsis and a typing reveal animation.",
+	"icon": "arrow-down-alt2",
+	"description": "A container that clips content at a max height with an accordion reveal.",
 	"textdomain": "flashblocks-truncate-content",
 	"attributes": {
-		"maxLines": {
+		"maxHeight": {
 			"type": "number",
-			"default": 3
+			"default": 75
 		},
 		"readMoreText": {
 			"type": "string",
@@ -25,9 +25,9 @@
 			"type": "string",
 			"default": ""
 		},
-		"typeRevealSpeed": {
-			"type": "number",
-			"default": 8
+		"showFade": {
+			"type": "boolean",
+			"default": true
 		},
 		"buttonColor": {
 			"type": "string"

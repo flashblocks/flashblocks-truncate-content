@@ -1,95 +1,32 @@
-/* Block: Truncate Content
- * A container that clips inner content at a configurable height
- * with a fade overlay and a read-more/read-less toggle button.
- *
- * States:
- *   .is-expanded       — content revealed, fade hidden, icon rotated
- *   .is-fully-visible  — content fits naturally, toggle + fade removed
- */
+@use "../shared/toggle" as t;
+
+/* Truncate Content — line-clamp text truncation with ellipsis */
 .wp-block-flashblocks-truncate-content {
-	interpolate-size: allow-keywords;
 	position: relative;
 
-	/* Clipped content area */
 	&__body {
-		max-height: var(--truncate-max-height, 75px);
 		overflow: hidden;
-		position: relative;
-		transition: max-height 0.4s ease;
+		display: -webkit-box;
+		-webkit-line-clamp: var(--truncate-max-lines, 3);
+		line-clamp: var(--truncate-max-lines, 3);
+		-webkit-box-orient: vertical;
 
-		/* Fade-to-background gradient at the bottom edge */
-		&::after {
-			content: "";
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 50px;
-			background: linear-gradient(transparent, var(--wp--preset--color--base, #ffffff));
-			pointer-events: none;
-			transition: opacity 0.3s;
-		}
+		> * { margin-block: 0; }
 	}
 
-	/* Toggle button (read more / read less) */
-	&__toggle {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.35em;
-		margin-top: 0.75em;
-		padding: 0;
-		border: none;
-		background: none;
-		color: var(--truncate-button-color, var(--wp--preset--color--primary, currentColor));
-		font-weight: 600;
-		font-size: inherit;
-		cursor: pointer;
-		text-decoration: none;
+	&__toggle { @include t.toggle-button(--truncate-button-color); }
+	&__icon   { @include t.toggle-icon; }
 
-		/* Override display: inline-flex so [hidden] works */
-		&[hidden] {
-			display: none;
-		}
-
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-
-	/* Optional SVG icon inside the toggle */
-	&__icon {
-		display: inline-flex;
-
-		svg {
-			transition: transform 0.3s;
-		}
-	}
-
-	/* Expanded: reveal content, hide fade, rotate icon */
 	&.is-expanded &__body {
-		max-height: max-content;
-
-		&::after {
-			opacity: 0;
-		}
+		-webkit-line-clamp: unset;
+		line-clamp: unset;
 	}
 
-	&.is-expanded &__icon svg {
-		transform: rotate(180deg);
-	}
+	&.is-expanded &__icon { @include t.expanded-icon; }
 
-	/* Fade disabled */
-	&.has-no-fade &__body::after {
-		display: none;
-	}
-
-	/* Content fits within max-height: remove all truncation artifacts */
 	&.is-fully-visible &__body {
-		max-height: none;
 		overflow: visible;
-
-		&::after {
-			display: none;
-		}
+		-webkit-line-clamp: unset;
+		line-clamp: unset;
 	}
 }

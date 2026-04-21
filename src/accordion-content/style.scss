@@ -1,0 +1,44 @@
+@use "../shared/toggle" as t;
+
+/* Accordion Content — height-based clip with optional fade */
+.wp-block-flashblocks-accordion-content {
+	interpolate-size: allow-keywords;
+	position: relative;
+
+	&__body {
+		max-height: var(--accordion-max-height, 75px);
+		overflow: hidden;
+		position: relative;
+		transition: max-height 0.4s ease;
+		-webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 50px), transparent);
+		mask-image: linear-gradient(to bottom, #000 calc(100% - 50px), transparent);
+
+		// Preserve WP block paragraph spacing inside the wrapper
+		> * + * { margin-block-start: var(--wp--style--block-gap, 1.25em); }
+		> *:first-child { margin-block-start: 0; }
+		> *:last-child { margin-block-end: 0; }
+	}
+
+	&.has-no-fade &__body {
+		-webkit-mask-image: none;
+		mask-image: none;
+	}
+
+	&__toggle { @include t.toggle-button(--accordion-button-color); }
+	&__icon   { @include t.toggle-icon; }
+
+	&.is-expanded &__body {
+		max-height: max-content;
+		-webkit-mask-image: none;
+		mask-image: none;
+	}
+
+	&.is-expanded &__icon { @include t.expanded-icon; }
+
+	&.is-fully-visible &__body {
+		max-height: none;
+		overflow: visible;
+		-webkit-mask-image: none;
+		mask-image: none;
+	}
+}
