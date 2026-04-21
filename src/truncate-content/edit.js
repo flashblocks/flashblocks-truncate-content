@@ -29,8 +29,8 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 						label={__("Max Lines", TD)}
 						value={maxLines}
 						onChange={(value) => setAttributes({ maxLines: value })}
-						min={1}
-						max={50}
+						min={0}
+						max={500}
 						step={1}
 						withInputField
 					/>
@@ -38,7 +38,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 						label={__("Typing Speed (ms/char)", TD)}
 						type="number"
 						value={typeRevealSpeed}
-						onChange={(value) => setAttributes({ typeRevealSpeed: parseFloat(value) || 0.1 })}
+						onChange={(value) => setAttributes({ typeRevealSpeed: value })}
 						step="any"
 					/>
 					<TextControl
