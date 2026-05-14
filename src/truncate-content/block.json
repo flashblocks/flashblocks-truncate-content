@@ -5,7 +5,7 @@
 	"version": "1.0.0",
 	"title": "Truncate Content",
 	"category": "design",
-	"icon": "hidden",
+	"icon": "excerpt-view",
 	"description": "A container that truncates text with ellipsis and a typing reveal animation.",
 	"textdomain": "flashblocks-truncate-content",
 	"attributes": {
